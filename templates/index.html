@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Brain Tumor Prediction with Grad-CAM</title>
+    <style>
+      /* Styling for displaying images side by side */
+      .image-container {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px; /* Adjusted to bring the images closer */
+        margin-top: 20px;
+      }
+      .image-container img {
+        width: 90%; /* Increased size for larger images */
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Upload an Image for Prediction</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" accept="image/*" />
+      <button type="submit">Upload and Predict</button>
+    </form>
+
+    {% if prediction %}
+    <h2>Prediction: {{ prediction }}</h2>
+
+    <!-- Image container for side-by-side display -->
+    <div class="image-container">
+      <div>
+        <h3>Original Image</h3>
+        <img
+          src="{{ url_for('static', filename=original_image.split('static/')[1]) }}"
+          alt="Original Image"
+        />
+      </div>
+      <div>
+        <h3>Grad-CAM Image</h3>
+        <img
+          src="{{ url_for('static', filename=gradcam_image.split('static/')[1]) }}"
+          alt="Grad-CAM Image"
+        />
+      </div>
+    </div>
+    {% endif %}
+  </body>
+</html>
